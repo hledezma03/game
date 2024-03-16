@@ -12,23 +12,51 @@ function getComputerChoice() {
 
 function playRound(playerChoice,computerChoice) {
     if (playerChoice == computerChoice) {
-        console.log('Draw!')
-    } else if (playerChoice == 'rock' && computerChoice == 'paper') {
-        console.log('You lose! Paper beats Rock')
-    } else if (playerChoice == 'rock' && computerChoice == 'scissors') {
-        console.log('You win! Rock beats Scissors')
-    } else if (playerChoice == 'paper' && computerChoice == 'rock') {
-        console.log('You win! Paper beats Rock')
-    }else if (playerChoice == 'paper' && computerChoice == 'scissors') {
-        console.log('You lose! Scissors beats Paper')
-    }else if (playerChoice == 'scissors' && computerChoice == 'rock') {
-        console.log('You lose! Rock beats Scissors')
+        return 'tie';
+    } else if (
+        (playerChoice == 'rock' && computerChoice == 'paper') || 
+        (playerChoice == 'paper' && computerChoice == 'scissors') || 
+        (playerChoice == 'scissors' && computerChoice == 'rock')
+        ){
+            return 'computer';
     }else {
-        console.log('You win! Scissors beats Paper')
+        return 'player';
     }
 };
 
-let playerChoice = 'scissors';
-let computerChoice = getComputerChoice();
+function playGame() {
+    let computerChoice = getComputerChoice();
+    let playerPoints = 0;
+    let computerPoints = 0;
+    for (let rounds = 1; rounds <= 5; rounds++) {
+        let playerChoice = prompt('Choose between: rock, paper or scissors').toLowerCase();   
+        let result = playRound(playerChoice,computerChoice);
+        console.log(`Round: ${rounds}`);
+        if (result === 'player') {
+            playerPoints++;
+            console.log(`You win! ${playerChoice} beats ${computerChoice}`)
+            console.log(`Player: ${playerPoints}`)
+            console.log(`Computer: ${computerPoints}`)
+        } else if (result === 'computer') {
+            computerPoints++;
+            console.log(`You lose! ${computerChoice} beats ${playerChoice}`)
+            console.log(`Player: ${playerPoints}`)
+            console.log(`Computer: ${computerPoints}`)
+        } else {
+            console.log('it is a tie!')
+            console.log(`Player: ${playerPoints}`)
+            console.log(`Computer: ${computerPoints}`)
+        }
+        console.log('');
+    }
 
-playRound(playerChoice,computerChoice);
+    if (playerPoints > computerPoints) {
+        console.log(`Congratulations! You won the game!`);
+    } else {
+        console.log('Sorry, you lose the game. Try again!!');
+    }
+
+
+};
+
+playGame();
