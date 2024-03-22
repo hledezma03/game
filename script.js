@@ -1,3 +1,10 @@
+const btn = document.querySelectorAll("button");
+const player = document.querySelector(".playerPoints");
+const computer = document.querySelector(".computerPoints");
+const round =document.querySelector(".round");
+const winner = document.querySelector(".win");
+
+
 function getComputerChoice() {
     let computerChoice = Math.floor(Math.random()*3) + 1;
     if (computerChoice === 1) {
@@ -23,38 +30,36 @@ function playRound(playerChoice,computerChoice) {
         return 'player';
     }
 };
-
-function playGame() {
-    let computerChoice = getComputerChoice();
-    let playerPoints = 0;
-    let computerPoints = 0;
-    for (let rounds = 1; rounds <= 5; rounds++) {
-        let playerChoice = prompt('Choose between: rock, paper or scissors').toLowerCase();   
-        let result = playRound(playerChoice,computerChoice);
-        console.log(`Round: ${rounds}`);
-        if (result === 'player') {
-            playerPoints++;
-            console.log(`You win! ${playerChoice} beats ${computerChoice}`)
-            console.log(`Player: ${playerPoints}`)
-            console.log(`Computer: ${computerPoints}`)
-        } else if (result === 'computer') {
-            computerPoints++;
-            console.log(`You lose! ${computerChoice} beats ${playerChoice}`)
-            console.log(`Player: ${playerPoints}`)
-            console.log(`Computer: ${computerPoints}`)
-        } else {
-            console.log('it is a tie!')
-            console.log(`Player: ${playerPoints}`)
-            console.log(`Computer: ${computerPoints}`)
-        }
-        console.log('');
-    }
-
-    if (playerPoints > computerPoints) {
-        console.log(`Congratulations! You won the game!`);
-    } else {
-        console.log('Sorry, you lose the game. Try again!!');
-    }
+let playerPoints = 0;
+let computerPoints = 0;
+let rounds = 0;
 
 
-};
+    btn.forEach(button => {
+        button.addEventListener("click", () => {
+            let computerChoice = getComputerChoice();  
+            let playerChoice = button.textContent.toLowerCase();
+            let result = playRound(playerChoice,computerChoice);
+            if (result == 'player') {
+                playerPoints++;
+                winner.textContent = `You win this round! ${playerChoice} beats ${computerChoice}`
+            } else if (result == 'computer') {
+                computerPoints++;
+                winner.textContent = `You lose this round! ${computerChoice} beats ${playerChoice}`;
+            } else {
+                winner.textContent = "It's a tie! Both players choose the same"
+            }
+            rounds++
+            player.textContent = `Player: ${playerPoints}`;
+            computer.textContent = `Computer: ${computerPoints}`;
+            round.textContent = `Round: ${rounds}`
+        });
+    });
+
+if (playerPoints > computerPoints) {
+    winner.textContent = 'You win this game! Can you win again?'
+} else if (playerPoints < computerPoints){
+    winner.textContent = 'You lose this game! Try again'
+}
+
+
