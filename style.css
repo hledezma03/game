@@ -1,0 +1,38 @@
+button {
+    border: none;
+    padding: 8px 16px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: gray;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: lightgray;
+    width: 500px;
+    height: 500px;
+    margin: auto;
+    padding: 48px;
+    text-align: center;
+}
+
+.points-container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.btns-container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.winner {
+    background-color: rgb(135, 187, 57);
+}
+
