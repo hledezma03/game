@@ -25,6 +25,8 @@ button:hover {
 }
 
 .points-container {
+    font-size: 24px;
+    font-weight: bold;
     display: flex;
     justify-content: space-evenly;
 }
@@ -32,6 +34,11 @@ button:hover {
 .btns-container {
     display: flex;
     justify-content: space-evenly;
+}
+
+.title {
+    font-style: italic;
+    color: rgb(64, 126, 105);
 }
 
 .winner {
