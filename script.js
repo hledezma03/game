@@ -1,8 +1,9 @@
+const container = document.querySelector(".container")
 const btn = document.querySelectorAll("button");
 const player = document.querySelector(".playerPoints");
 const computer = document.querySelector(".computerPoints");
 const round =document.querySelector(".round");
-const winner = document.querySelector(".win");
+const roundWinner = document.querySelector(".win");
 
 
 function getComputerChoice() {
@@ -30,6 +31,31 @@ function playRound(playerChoice,computerChoice) {
         return 'player';
     }
 };
+
+function updateGame() {
+    player.textContent = `Player: ${playerPoints}`;
+    computer.textContent = `Computer: ${computerPoints}`;
+    round.textContent = `Round: ${rounds}`
+}
+
+function endGame() {
+    let winner;
+    if (playerPoints == 5) {
+        winner = 'Player';
+    } else {
+        winner = 'Computer';
+    };
+    
+    roundWinner.textContent = `Game over! ${winner} wins`
+
+    btn.forEach(button => {
+        button.disabled = true;
+    })
+
+};
+
+
+
 let playerPoints = 0;
 let computerPoints = 0;
 let rounds = 0;
@@ -40,26 +66,25 @@ let rounds = 0;
             let computerChoice = getComputerChoice();  
             let playerChoice = button.textContent.toLowerCase();
             let result = playRound(playerChoice,computerChoice);
+            
             if (result == 'player') {
                 playerPoints++;
-                winner.textContent = `You win this round! ${playerChoice} beats ${computerChoice}`
+                roundWinner.textContent = `You win this round! ${playerChoice} beats ${computerChoice}`
             } else if (result == 'computer') {
                 computerPoints++;
-                winner.textContent = `You lose this round! ${computerChoice} beats ${playerChoice}`;
+                roundWinner.textContent = `You lose this round! ${computerChoice} beats ${playerChoice}`;
             } else {
-                winner.textContent = "It's a tie! Both players choose the same"
+                roundWinner.textContent = "It's a tie! Both players choose the same"
             }
             rounds++
-            player.textContent = `Player: ${playerPoints}`;
-            computer.textContent = `Computer: ${computerPoints}`;
-            round.textContent = `Round: ${rounds}`
+            updateGame()
+            if (playerPoints == 5 || computerPoints == 5) {
+                endGame();
+            }
+            
         });
     });
 
-if (playerPoints > computerPoints) {
-    winner.textContent = 'You win this game! Can you win again?'
-} else if (playerPoints < computerPoints){
-    winner.textContent = 'You lose this game! Try again'
-}
+
 
 
